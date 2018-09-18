@@ -1,1 +1,22 @@
 centos 
+
+Virtual guest
+
+yum -y install epel-release
+yum -y update 
+yum install make gcc kernel-headers kernel-devel perl dkms bzip2
+export KERN_DIR=/usr/src/kernels/$(uname -r)
+
+
+#####################   SQL  ###################
+
+sudo curl -o /etc/yum.repos.d/mssql-server.repo https://packages.microsoft.com/config/rhel/7/mssql-server-2017.repo
+
+sudo yum install -y mssql-server
+
+sudo /opt/mssql/bin/mssql-conf setup
+
+systemctl status mssql-server
+
+sudo firewall-cmd --zone=public --add-port=1433/tcp --permanent
+sudo firewall-cmd --reload
